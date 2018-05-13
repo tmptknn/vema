@@ -477,12 +477,39 @@
           m1[3], m1[7], m1[11], m1[15]]);
         return res;
       }
-
-
     }
+
+    class Quaternion{
+      constructor(q) {
+        this.q = q;
+      }
+
+      invert() {
+        const q = this.q;
+        return new Quaternion([-q[0], -q[1], -q[2], q[3]]);
+      }
+
+      multiple(o) {
+        const q = this.q;
+        const p = o.q;
+        return new Quaternion([q[1]*p[2] - q[2]*p[1] + q[0]*p[3] + q[3]*p[0],
+                q[2]*p[0] - q[0]*p[2] + q[1]*p[3] + q[3]*p[1],
+                q[0]*p[1] - q[1]*p[0] + q[2]*p[3] + q[3]*p[2],
+                q[3]*p[3] - q[0]*p[0] - q[1]*p[1] - q[2]*p[2]]);
+
+      }
+
+      flatten() {
+        return  this.q;
+      }
+
+}
+
 
     VemaLib.Vec3 = Vec3;
     VemaLib.Matrix4 = Matrix4;
+    VemaLib.Quaternion = Quaternion;
+
 
     return VemaLib;
   }
